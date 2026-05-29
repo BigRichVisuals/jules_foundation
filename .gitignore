@@ -6,6 +6,9 @@
 node_modules/
 services/backend/node_modules/
 
+.vite/
+apps/web/.vite/
+
 .aws-sam/
 services/backend/.aws-sam/
 
