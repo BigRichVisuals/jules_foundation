@@ -25,6 +25,13 @@ html {
   scroll-behavior: smooth;
 }
 
+#home,
+#about,
+#contact,
+#donate {
+  scroll-margin-top: 88px;
+}
+
 body {
   margin: 0;
   min-width: 320px;
@@ -736,67 +743,211 @@ h3 {
 
 @media (max-width: 640px) {
   .site-header {
-    padding: 14px 16px;
+    padding: 12px 14px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.14);
+    background: rgba(5, 22, 21, 0.84);
+    backdrop-filter: blur(14px);
+  }
+
+  .brand-mark {
+    gap: 10px;
+  }
+
+  .brand-mark img {
+    width: 42px;
+    height: 42px;
   }
 
   .brand-mark span {
-    max-width: 138px;
+    max-width: 128px;
     line-height: 1.05;
+    font-size: 0.98rem;
+  }
+
+  .menu-button {
+    width: 42px;
+    height: 42px;
+  }
+
+  .site-nav {
+    top: 66px;
+    right: 14px;
+    width: min(300px, calc(100vw - 28px));
   }
 
   .hero-section {
-    min-height: 100svh;
-    padding: 106px 18px 170px;
+    min-height: auto;
+    align-items: start;
+    padding: 96px 18px 38px;
+  }
+
+  .hero-slide,
+  .hero-slide.is-active {
+    transform: none;
+  }
+
+  .hero-overlay {
+    background:
+      linear-gradient(180deg, rgba(3, 23, 22, 0.9) 0%, rgba(3, 23, 22, 0.78) 45%, rgba(3, 23, 22, 0.94) 100%),
+      linear-gradient(90deg, rgba(3, 23, 22, 0.64), rgba(3, 23, 22, 0.22));
+  }
+
+  .hero-content {
+    padding-top: 0;
   }
 
   .hero-logo {
-    width: 126px;
-    height: 96px;
+    width: 106px;
+    height: 82px;
+    margin-bottom: 18px;
   }
 
   .hero-logo img {
-    width: 108px;
-    height: 78px;
+    width: 90px;
+    height: 64px;
   }
 
   h1 {
-    font-size: clamp(3.7rem, 18vw, 5.2rem);
+    max-width: 9ch;
+    margin-bottom: 10px;
+    font-size: clamp(3.35rem, 16vw, 4.7rem);
+    line-height: 0.9;
   }
 
   h2 {
-    font-size: clamp(2.25rem, 13vw, 3.45rem);
+    max-width: 11ch;
+    font-size: clamp(2.12rem, 12vw, 3.15rem);
+    line-height: 0.98;
+  }
+
+  .eyebrow {
+    margin-bottom: 10px;
+    font-size: 0.72rem;
+  }
+
+  .hero-subheading {
+    margin-bottom: 14px;
+    font-size: 1.16rem;
+    line-height: 1.2;
+  }
+
+  .hero-intro {
+    font-size: 0.98rem;
+    line-height: 1.58;
   }
 
   .hero-actions,
   .cta-actions {
     align-items: stretch;
     flex-direction: column;
+    gap: 10px;
+    margin-top: 22px;
   }
 
   .button {
     width: 100%;
+    min-height: 50px;
   }
 
   .caption-panel {
-    right: 18px;
-    bottom: 28px;
+    position: relative;
+    right: auto;
+    bottom: auto;
+    z-index: 2;
+    width: 100%;
+    margin-top: 22px;
+    padding: 16px;
+  }
+
+  .caption-panel span {
+    font-size: 1rem;
+    line-height: 1.25;
+  }
+
+  .slide-dots {
+    margin-top: 12px;
+  }
+
+  .dot {
+    width: 28px;
   }
 
   .about-section,
   .programs-section,
   .testimonials-section,
   .contact-section {
-    padding: 72px 18px;
+    padding: 64px 18px;
+  }
+
+  .section-copy p,
+  .contact-copy p {
+    font-size: 1rem;
+    line-height: 1.66;
   }
 
   .image-feature,
   .image-feature img {
-    min-height: 380px;
+    min-height: 320px;
+  }
+
+  .image-note {
+    left: 16px;
+    right: 16px;
+    bottom: 16px;
+    padding: 14px;
   }
 
   .program-card,
   .testimonial-card,
   .contact-form {
     padding: 24px;
+  }
+
+  .program-card {
+    min-height: auto;
+  }
+
+  .priority-item {
+    min-height: 62px;
+  }
+
+  .impact-section {
+    padding: 0 18px;
+  }
+
+  .impact-panel div {
+    min-height: 150px;
+    padding: 26px 8px;
+  }
+
+  .cta-section {
+    padding: 56px 18px;
+  }
+
+  .contact-note {
+    max-width: none;
+  }
+
+  .site-footer {
+    padding: 28px 18px;
+  }
+}
+
+@media (max-width: 380px) {
+  .hero-section {
+    padding-top: 88px;
+  }
+
+  .brand-mark span {
+    max-width: 112px;
+    font-size: 0.9rem;
+  }
+
+  h1 {
+    font-size: clamp(3rem, 15vw, 3.55rem);
+  }
+
+  .hero-intro {
+    font-size: 0.94rem;
   }
 }
