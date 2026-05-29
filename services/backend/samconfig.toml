@@ -1,0 +1,22 @@
+version = 0.1
+
+[default.global.parameters]
+stack_name = "jules-foundation-backend-dev"
+
+[default.build.parameters]
+cached = true
+parallel = true
+
+[default.deploy.parameters]
+region = "us-east-1"
+capabilities = "CAPABILITY_IAM"
+confirm_changeset = true
+resolve_s3 = true
+s3_prefix = "jules-foundation-backend"
+parameter_overrides = [
+  "AppEnv=dev",
+  "LogLevel=info",
+  "AllowedOrigins=https://julesfoundation.com,https://www.julesfoundation.com,https://main.d1jgyq9fz4ajo6.amplifyapp.com,https://dev.d1jgyq9fz4ajo6.amplifyapp.com,http://localhost:3000",
+  "ContactToEmail=contact@julesfoundation.com",
+  "ContactFromEmail=no-reply@julesfoundation.com"
+]

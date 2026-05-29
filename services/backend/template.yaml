@@ -1,0 +1,156 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Transform: AWS::Serverless-2016-10-31
+Description: Production-ready AWS SAM backend for the Jules Foundation website.
+
+Parameters:
+  AppEnv:
+    Type: String
+    Default: dev
+    AllowedValues:
+      - local
+      - test
+      - dev
+      - staging
+      - prod
+  LogLevel:
+    Type: String
+    Default: info
+    AllowedValues:
+      - debug
+      - info
+      - warn
+      - error
+  AllowedOrigins:
+    Type: CommaDelimitedList
+    Description: Explicit browser origins allowed to call the API.
+  ContactToEmail:
+    Type: String
+    Description: Destination email address for validated contact form submissions.
+  ContactFromEmail:
+    Type: String
+    Description: Verified SES sender identity used for contact form delivery.
+
+Globals:
+  Function:
+    Runtime: nodejs20.x
+    Architectures:
+      - arm64
+    MemorySize: 256
+    Timeout: 10
+    Tracing: Active
+    Environment:
+      Variables:
+        APP_ENV: !Ref AppEnv
+        LOG_LEVEL: !Ref LogLevel
+        ALLOWED_ORIGINS: !Join [",", !Ref AllowedOrigins]
+    Tags:
+      Application: jules-foundation
+      Environment: !Ref AppEnv
+
+Resources:
+  PublicApi:
+    Type: AWS::Serverless::HttpApi
+    Properties:
+      StageName: !Ref AppEnv
+      CorsConfiguration:
+        AllowOrigins: !Ref AllowedOrigins
+        AllowHeaders:
+          - content-type
+          - x-correlation-id
+        AllowMethods:
+          - GET
+          - POST
+          - OPTIONS
+        MaxAge: 600
+
+  NewsletterTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      BillingMode: PAY_PER_REQUEST
+      AttributeDefinitions:
+        - AttributeName: email
+          AttributeType: S
+      KeySchema:
+        - AttributeName: email
+          KeyType: HASH
+      SSESpecification:
+        SSEEnabled: true
+      Tags:
+        - Key: Application
+          Value: jules-foundation
+        - Key: Environment
+          Value: !Ref AppEnv
+
+  HealthFunction:
+    Type: AWS::Serverless::Function
+    Metadata:
+      BuildMethod: makefile
+    Properties:
+      Handler: src/handlers/health.handler
+      Events:
+        HealthRoute:
+          Type: HttpApi
+          Properties:
+            ApiId: !Ref PublicApi
+            Path: /health
+            Method: GET
+
+  ContactFunction:
+    Type: AWS::Serverless::Function
+    Metadata:
+      BuildMethod: makefile
+    Properties:
+      Handler: src/handlers/contact.handler
+      Environment:
+        Variables:
+          CONTACT_TO_EMAIL: !Ref ContactToEmail
+          CONTACT_FROM_EMAIL: !Ref ContactFromEmail
+      Policies:
+        - Statement:
+            - Sid: SendContactEmailFromVerifiedIdentity
+              Effect: Allow
+              Action:
+                - ses:SendEmail
+              Resource: !Sub arn:${AWS::Partition}:ses:${AWS::Region}:${AWS::AccountId}:identity/${ContactFromEmail}
+              Condition:
+                StringEquals:
+                  ses:FromAddress: !Ref ContactFromEmail
+      Events:
+        ContactRoute:
+          Type: HttpApi
+          Properties:
+            ApiId: !Ref PublicApi
+            Path: /contact
+            Method: POST
+
+  NewsletterFunction:
+    Type: AWS::Serverless::Function
+    Metadata:
+      BuildMethod: makefile
+    Properties:
+      Handler: src/handlers/newsletter.handler
+      Environment:
+        Variables:
+          NEWSLETTER_TABLE_NAME: !Ref NewsletterTable
+      Policies:
+        - Statement:
+            - Sid: StoreNewsletterSubscription
+              Effect: Allow
+              Action:
+                - dynamodb:PutItem
+              Resource: !GetAtt NewsletterTable.Arn
+      Events:
+        NewsletterRoute:
+          Type: HttpApi
+          Properties:
+            ApiId: !Ref PublicApi
+            Path: /newsletter
+            Method: POST
+
+Outputs:
+  ApiUrl:
+    Description: Base URL for the deployed HTTP API stage.
+    Value: !Sub https://${PublicApi}.execute-api.${AWS::Region}.${AWS::URLSuffix}/${AppEnv}
+  NewsletterTableName:
+    Description: DynamoDB table storing newsletter subscriptions.
+    Value: !Ref NewsletterTable

@@ -4,12 +4,17 @@
 !.env.example
 
 node_modules/
+services/backend/node_modules/
+
+.aws-sam/
+services/backend/.aws-sam/
+
+coverage/
+services/backend/coverage/
+
 dist/
 build/
-.aws-sam/
-coverage/
+*.log
 
 .vscode/
 .idea/
-
-*.log

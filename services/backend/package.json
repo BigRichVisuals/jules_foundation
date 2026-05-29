@@ -1,0 +1,35 @@
+{
+  "name": "jules-foundation-backend",
+  "version": "1.0.0",
+  "private": true,
+  "description": "AWS SAM backend for the Jules Foundation website.",
+  "type": "module",
+  "scripts": {
+    "build": "sam build",
+    "clean": "rm -rf .aws-sam coverage",
+    "lint": "tsc --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:coverage": "vitest run --coverage",
+    "sam:local": "sam local start-api --parameter-overrides AppEnv=local LogLevel=debug AllowedOrigins=http://localhost:3000 ContactToEmail=contact@julesfoundation.com ContactFromEmail=no-reply@julesfoundation.com",
+    "sam:deploy:guided": "sam deploy --guided",
+    "sam:deploy": "sam deploy"
+  },
+  "dependencies": {
+    "@aws-sdk/client-dynamodb": "^3.583.0",
+    "@aws-sdk/client-ses": "^3.583.0",
+    "@aws-sdk/lib-dynamodb": "^3.583.0",
+    "zod": "^3.23.8"
+  },
+  "devDependencies": {
+    "@types/aws-lambda": "^8.10.138",
+    "@types/node": "^20.12.12",
+    "@vitest/coverage-v8": "^4.1.7",
+    "esbuild": "^0.28.0",
+    "typescript": "^5.4.5",
+    "vitest": "^4.1.7"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}
