@@ -35,6 +35,22 @@ npm run sam:validate:lint
 npm run sam:build
 ```
 
+## Amplify Hosting
+
+The frontend is configured for AWS Amplify Hosting with the root [amplify.yml](./amplify.yml) file. The deployed app root is:
+
+```text
+apps/web
+```
+
+For an existing Amplify app, set this environment variable in the Amplify console if branch deployments do not automatically detect the monorepo app root:
+
+```text
+AMPLIFY_MONOREPO_APP_ROOT=apps/web
+```
+
+The Amplify app ID for this project is `d1jgyq9fz4ajo6`.
+
 SAM files live in `services/backend`, so direct SAM commands from the root must point to that template:
 
 ```bash
