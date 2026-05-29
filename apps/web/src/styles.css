@@ -578,19 +578,22 @@ h3 {
   grid-template-columns: minmax(0, 0.85fr) minmax(330px, 0.75fr);
 }
 
-.contact-methods {
+.contact-note {
   display: grid;
-  gap: 14px;
-  margin-top: 28px;
-}
-
-.contact-methods a,
-.contact-methods span {
-  display: flex;
+  grid-template-columns: auto 1fr;
   align-items: center;
   gap: 12px;
+  margin-top: 28px;
+  max-width: 420px;
+  padding: 18px;
   color: var(--teal-deep);
+  border: 1px solid rgba(12, 111, 103, 0.22);
+  background: rgba(233, 242, 240, 0.82);
+}
+
+.contact-note span {
   font-weight: 800;
+  line-height: 1.45;
 }
 
 .contact-form {

@@ -2,14 +2,11 @@ import React from "react";
 import { createRoot } from "react-dom/client";
 import {
   ArrowRight,
-  BookOpen,
   GraduationCap,
   HandHeart,
   HeartHandshake,
   Mail,
-  MapPin,
   Menu,
-  Phone,
   Quote,
   School,
   ShieldCheck,
@@ -111,7 +108,7 @@ function App() {
     const apiBaseUrl = import.meta.env.VITE_API_BASE_URL as string | undefined;
 
     if (!apiBaseUrl) {
-      setContactStatus("The contact form will connect when the API URL is configured. For now, email contact@julesfoundation.com.");
+      setContactStatus("Message delivery is not connected yet. Please check back soon.");
       return;
     }
 
@@ -140,7 +137,7 @@ function App() {
       event.currentTarget.reset();
       setContactStatus("Thanks. Your message was received by Jules Foundation.");
     } catch {
-      setContactStatus("Something went wrong sending the message. Please email contact@julesfoundation.com.");
+      setContactStatus("Something went wrong sending the message. Please try again later.");
     }
   };
 
@@ -342,22 +339,12 @@ function App() {
               <p className="eyebrow">Contact</p>
               <h2>Let&apos;s build something hopeful together.</h2>
               <p>
-                Reach out about partnerships, volunteer opportunities, education support, or family assistance. The live
-                contact form integration can connect to the backend service when the API is deployed.
+                Reach out about partnerships, volunteer opportunities, education support, or family assistance. Messages are
+                routed through the Jules Foundation backend when the public API endpoint is connected.
               </p>
-              <div className="contact-methods">
-                <a href="mailto:contact@julesfoundation.com">
-                  <Mail size={20} />
-                  contact@julesfoundation.com
-                </a>
-                <a href="tel:+1555010000">
-                  <Phone size={20} />
-                  (555) 010-0000
-                </a>
-                <span>
-                  <MapPin size={20} />
-                  Serving children and families through community programs
-                </span>
+              <div className="contact-note">
+                <Mail size={20} />
+                <span>Use the secure form for all website inquiries.</span>
               </div>
             </div>
 
@@ -368,7 +355,7 @@ function App() {
               </label>
               <label>
                 Email
-                <input type="email" name="email" placeholder="you@example.com" required />
+                <input type="email" name="email" placeholder="Your email address" required />
               </label>
               <label>
                 Message
