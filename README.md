@@ -22,6 +22,26 @@ infra/
 - `assets/images` contains shared brand assets, including the Jules Foundation logo.
 - `infra/dns` contains notes for domain registration, Route 53 hosted zones, ACM certificates, and DNS planning.
 
+## Root Commands
+
+The repo root is a small npm workspace command hub:
+
+```bash
+npm install
+npm test
+npm run build
+npm run sam:validate
+npm run sam:validate:lint
+npm run sam:build
+```
+
+SAM files live in `services/backend`, so direct SAM commands from the root must point to that template:
+
+```bash
+sam validate --template-file services/backend/template.yaml --lint
+sam build --template-file services/backend/template.yaml
+```
+
 Frontend commands should be run from `apps/web`:
 
 ```bash

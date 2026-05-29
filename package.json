@@ -1,0 +1,20 @@
+{
+  "name": "jules-foundation",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Jules Foundation monorepo.",
+  "scripts": {
+    "postinstall": "npm install --prefix apps/web && npm install --prefix services/backend",
+    "test": "npm --prefix services/backend test",
+    "build": "npm run build:web && npm run build:backend",
+    "build:web": "npm --prefix apps/web run build",
+    "build:backend": "npm --prefix services/backend run build",
+    "sam:validate": "sam validate --template-file services/backend/template.yaml",
+    "sam:validate:lint": "sam validate --template-file services/backend/template.yaml --lint",
+    "sam:build": "sam build --template-file services/backend/template.yaml",
+    "dev:web": "npm --prefix apps/web run dev"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}
