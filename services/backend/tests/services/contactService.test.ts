@@ -6,8 +6,8 @@ const config = {
   APP_ENV: "test" as const,
   LOG_LEVEL: "error" as const,
   ALLOWED_ORIGINS: ["https://www.julesfoundation.com"],
-  CONTACT_TO_EMAIL: "contact@julesfoundation.com",
-  CONTACT_FROM_EMAIL: "no-reply@julesfoundation.com"
+  CONTACT_TO_EMAIL: "Julesfoundationinc@gmail.com",
+  CONTACT_FROM_EMAIL: "Julesfoundationinc@gmail.com"
 };
 
 const logger = {

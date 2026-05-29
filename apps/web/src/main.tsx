@@ -7,6 +7,7 @@ import {
   HeartHandshake,
   Mail,
   Menu,
+  Phone,
   Quote,
   School,
   ShieldCheck,
@@ -88,6 +89,9 @@ const testimonials = [
   }
 ];
 
+const foundationEmail = "Julesfoundationinc@gmail.com";
+const foundationPhone = "(954) 825-7199";
+
 function App() {
   const [activeSlide, setActiveSlide] = React.useState(0);
   const [menuOpen, setMenuOpen] = React.useState(false);
@@ -108,7 +112,7 @@ function App() {
     const apiBaseUrl = import.meta.env.VITE_API_BASE_URL as string | undefined;
 
     if (!apiBaseUrl) {
-      setContactStatus("Message delivery is not connected yet. Please check back soon.");
+      setContactStatus(`Message delivery is not connected yet. Please email ${foundationEmail}.`);
       return;
     }
 
@@ -137,7 +141,7 @@ function App() {
       event.currentTarget.reset();
       setContactStatus("Thanks. Your message was received by Jules Foundation.");
     } catch {
-      setContactStatus("Something went wrong sending the message. Please try again later.");
+      setContactStatus(`Something went wrong sending the message. Please email ${foundationEmail}.`);
     }
   };
 
@@ -343,8 +347,14 @@ function App() {
                 routed through the Jules Foundation backend when the public API endpoint is connected.
               </p>
               <div className="contact-note">
-                <Mail size={20} />
-                <span>Use the secure form for all website inquiries.</span>
+                <a href={`mailto:${foundationEmail}`}>
+                  <Mail size={20} />
+                  <span>{foundationEmail}</span>
+                </a>
+                <a href="tel:+19548257199">
+                  <Phone size={20} />
+                  <span>{foundationPhone}</span>
+                </a>
               </div>
             </div>
 

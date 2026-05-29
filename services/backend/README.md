@@ -194,8 +194,8 @@ sam deploy \
     AppEnv=dev \
     LogLevel=info \
     AllowedOrigins=https://julesfoundation.com,https://www.julesfoundation.com,https://main.d1jgyq9fz4ajo6.amplifyapp.com,https://dev.d1jgyq9fz4ajo6.amplifyapp.com,http://localhost:3000 \
-    ContactToEmail=contact@julesfoundation.com \
-    ContactFromEmail=no-reply@julesfoundation.com
+    ContactToEmail=Julesfoundationinc@gmail.com \
+    ContactFromEmail=Julesfoundationinc@gmail.com
 ```
 
 ## Security Notes

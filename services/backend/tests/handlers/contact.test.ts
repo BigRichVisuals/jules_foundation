@@ -18,8 +18,8 @@ describe("contact handler", () => {
     process.env.APP_ENV = "test";
     process.env.LOG_LEVEL = "error";
     process.env.ALLOWED_ORIGINS = "https://www.julesfoundation.com";
-    process.env.CONTACT_TO_EMAIL = "contact@julesfoundation.com";
-    process.env.CONTACT_FROM_EMAIL = "no-reply@julesfoundation.com";
+    process.env.CONTACT_TO_EMAIL = "Julesfoundationinc@gmail.com";
+    process.env.CONTACT_FROM_EMAIL = "Julesfoundationinc@gmail.com";
   });
 
   it("validates and accepts contact submissions", async () => {

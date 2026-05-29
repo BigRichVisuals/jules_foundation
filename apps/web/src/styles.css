@@ -587,9 +587,7 @@ h3 {
 
 .contact-note {
   display: grid;
-  grid-template-columns: auto 1fr;
-  align-items: center;
-  gap: 12px;
+  gap: 10px;
   margin-top: 28px;
   max-width: 420px;
   padding: 18px;
@@ -598,7 +596,16 @@ h3 {
   background: rgba(233, 242, 240, 0.82);
 }
 
+.contact-note a {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: center;
+  gap: 12px;
+  font-size: 0.96rem;
+}
+
 .contact-note span {
+  overflow-wrap: anywhere;
   font-weight: 800;
   line-height: 1.45;
 }
@@ -926,6 +933,17 @@ h3 {
 
   .contact-note {
     max-width: none;
+    padding: 16px;
+  }
+
+  .contact-note a {
+    grid-template-columns: 1fr;
+    gap: 0;
+    font-size: 0.9rem;
+  }
+
+  .contact-note svg {
+    display: none;
   }
 
   .site-footer {
